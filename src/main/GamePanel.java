@@ -29,6 +29,10 @@ public class GamePanel extends JPanel implements Runnable {
     int playerY = 100;
     int playerSpeed = 4;
 
+    int currentFPS;
+    String playerDirection;
+    int lastPlayerX, lastPlayerY;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -68,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if(timer >= 1000000000) {
-                System.out.println("FPS:" + drawCount);
+                currentFPS = drawCount;
                 drawCount = 0;
                 timer = 0;
             }
@@ -76,6 +80,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+
+        lastPlayerX = playerX;
+        lastPlayerY = playerY;
 
         if (keyH.upPressed == true) {
             playerY -= playerSpeed;
@@ -87,6 +94,18 @@ public class GamePanel extends JPanel implements Runnable {
             playerX += playerSpeed;
         }
 
+        if (playerX > lastPlayerX) {
+            playerDirection = "Right";
+        } else if (playerX < lastPlayerX) {
+            playerDirection = "Left";
+        } else if (playerY > lastPlayerY) {
+            playerDirection = "Down";
+        } else if (playerY < lastPlayerY) {
+            playerDirection = "Up";
+        } else {
+            playerDirection = "Stationary";
+        }
+
     }
 
     public void paintComponent(Graphics g) {
@@ -96,8 +115,16 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setColor(Color.white);
-
         g2.fillRect(playerX, playerY, tileSize, tileSize);
+
+        // text info
+        g2.setColor(Color.CYAN);
+        g2.drawString("FPS: " + currentFPS,  10, 20);
+        g2.drawString("X: " + playerX, 10, 40);
+        g2.drawString("Y: " + playerY, 10, 60);
+        g2.drawString("Direction: " + playerDirection, 10, 80);
+
+
 
         g2.dispose();
     }
