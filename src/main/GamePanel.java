@@ -1,10 +1,10 @@
-package src.main;
+package main;
 
-import javax.swing.JPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Color;
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -108,6 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    @Override
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
