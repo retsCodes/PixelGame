@@ -10,24 +10,6 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
 
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_W) {
-            System.out.println("Up Pressed");
-
-        }
-        if (code == KeyEvent.VK_A) {
-            System.out.println("Left Pressed");
-
-        }
-        if (code == KeyEvent.VK_S) {
-            System.out.println("Down Pressed");
-
-        }
-        if (code == KeyEvent.VK_D) {
-            System.out.println("Right Pressed");
-
-        }
 
     }
 
