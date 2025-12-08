@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -14,22 +15,21 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48 tile
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int maxScreenCol = 16;
+    public  int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // FPS
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this,keyH);
 
 
     int currentFPS;
-    String playerDirection;
-    int lastPlayerX, lastPlayerY;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -79,22 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        lastPlayerX = player.x;
-        lastPlayerY = player.y;
-
         player.update();
-
-        if (player.x > lastPlayerX) {
-            playerDirection = "Right";
-        } else if (player.x < lastPlayerX) {
-            playerDirection = "Left";
-        } else if (player.y > lastPlayerY) {
-            playerDirection = "Down";
-        } else if (player.y < lastPlayerY) {
-            playerDirection = "Up";
-        } else {
-            playerDirection = "Stationary";
-        }
 
     }
 
@@ -105,6 +90,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        tileM.draw(g2);
+
         player.draw(g2);
 
 
@@ -113,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawString("FPS: " + currentFPS,  10, 20);
         g2.drawString("X: " + player.x, 10, 40);
         g2.drawString("Y: " + player.y, 10, 60);
-        g2.drawString("Direction: " + playerDirection, 10, 80);
+        g2.drawString("Direction: " + player.direction, 10, 80);
 
 
 
