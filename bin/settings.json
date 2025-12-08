@@ -2,7 +2,9 @@
     "java.project.sourcePaths": [
         "src",
         "res",
-        ".vscode"
+        ".vscode",
+        "tile"
+        
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
